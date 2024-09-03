@@ -3,9 +3,10 @@ import numpy as np
 from PIL import Image
 import base64
 import blurhash  # type: ignore[import]
+import pathlib
 
 
-def generate_blurhash(image_path: str) -> Tuple[Optional[str], Optional[str]]:
+def generate_blurhash(image_path: pathlib.Path) -> Tuple[Optional[str], Optional[str]]:
     """
     Generates a BlurHash and a base64-encoded PNG data URL for an AVIF image.
 
@@ -36,11 +37,12 @@ def generate_blurhash(image_path: str) -> Tuple[Optional[str], Optional[str]]:
             blurhash_str = blurhash.encode(image_array, 4, 4)
 
             # Convert resized image to PNG and then to base64
-            small_image.save("temp.png", "PNG")
-            with open("temp.png", "rb") as file:  # noqa: PTH123
-                png_bytes = file.read()
+            temp_file_path = pathlib.Path("temp.png")
+            small_image.save(temp_file_path, "PNG")
+            png_bytes = temp_file_path.read_bytes()
             base64_png = base64.b64encode(png_bytes).decode("utf-8")
             data_url = f"data:image/png;base64,{base64_png}"
+            temp_file_path.unlink()  # Remove temporary file
 
             return blurhash_str, data_url
 
@@ -53,12 +55,12 @@ def generate_blurhash(image_path: str) -> Tuple[Optional[str], Optional[str]]:
 
 
 def main():
-    avif_image_path = "image.avif"  # Replace with your AVIF image file path
+    avif_image_path = pathlib.Path("image.avif")  # Replace with your AVIF image file path
 
     blurhash_str, data_url = generate_blurhash(avif_image_path)
 
     if blurhash_str and data_url:
-        print(f"BlurHash: {blurhash_str}")
+        print(f"BlurHash: {blurhash_str}\n")
         print(f"Data URL: {data_url}")
     else:
         print("Failed to generate BlurHash and Data URL.")
