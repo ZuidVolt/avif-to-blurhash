@@ -32,7 +32,7 @@ This project provides a simple Python script to generate BlurHash strings and ba
 ---------------
 
 * Python 3.x
-* Pillow (PIL) library
+* Pillow (PIL) library (install using `pip install "pillow[avif]`)
 * NumPy library
 * base64 library
 * blurhash library (install using `pip install blurhash`)
