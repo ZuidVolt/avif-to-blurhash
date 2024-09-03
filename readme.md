@@ -60,10 +60,10 @@ This project provides a Python script for generating BlurHash strings and base64
 1. choose the input file directory you want to use with the -d Argument.
 
    ```markdown
-   python3 main.py -d /path/to/directory
+   python3 main.py -d /path/to/file
    ```
 
-   or if no dir is Selected it will use `image.avif` in the main directory
+   or if no file directory is Selected it will use `image.avif` in the main directory
 
 2. Replace `image.avif` in the `main.py` file with your AVIF image file path.
 Run the script:
