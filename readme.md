@@ -29,7 +29,7 @@ This project provides a Python script for generating BlurHash strings and base64
 
 ## Requirements
 
-- Python 3.x
+- Python 3.6 or higher
 - Pillow (PIL) library with AVIF support
 - NumPy library
 - base64 library
