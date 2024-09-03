@@ -60,7 +60,7 @@ def main():
     blurhash_str, data_url = generate_blurhash(avif_image_path)
 
     if blurhash_str and data_url:
-        print(f"Data URL: {data_url}\n")
+        print(f"\n Data URL: {data_url}")
         print(f"BlurHash: {blurhash_str}\n")
     else:
         print("Failed to generate BlurHash and Data URL.")
