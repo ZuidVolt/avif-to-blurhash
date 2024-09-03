@@ -4,6 +4,7 @@ from PIL import Image
 import base64
 import blurhash  # type: ignore[import]
 from pathlib import Path
+import argparse
 
 
 def generate_blurhash(image_path: Path) -> Tuple[Optional[str], Optional[str]]:
@@ -55,7 +56,15 @@ def generate_blurhash(image_path: Path) -> Tuple[Optional[str], Optional[str]]:
 
 
 def main():
-    avif_image_path = Path("image.avif")  # Replace with your AVIF image file path
+    parser = argparse.ArgumentParser(description="Generate BlurHash and Data URL for AVIF images.")
+    parser.add_argument("-d", "--directory", type=str, help="Directory containing the AVIF image file")
+    args = parser.parse_args()
+
+    if args.directory:
+        image_dir = Path(args.directory)
+        avif_image_path = image_dir / "image.avif"
+    else:
+        avif_image_path = Path("image.avif")
 
     blurhash_str, data_url = generate_blurhash(avif_image_path)
 
